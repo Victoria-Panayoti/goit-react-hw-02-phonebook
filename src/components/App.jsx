@@ -12,8 +12,6 @@ export class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
   };
 
   addContact = newContact => {
@@ -33,6 +31,11 @@ export class App extends Component {
       contact.name.toLowerCase().includes(this.state.filter.toLocaleLowerCase())
     );
   };
+  deleteContact = id => {
+    this.setState(state => ({
+      contacts: state.contacts.filter(contact=> contact.id !== id),
+    }));
+  };
   
   render() {
     const { contacts, filter } = this.state;
@@ -45,7 +48,8 @@ export class App extends Component {
         <Filter search={filter} onSearch={this.searchContact} />
         {showContact && (
             <Contacts
-              contacts={showContact}
+            contacts={showContact}
+            onDelete={this.deleteContact}
             />
           )}
       </div>
