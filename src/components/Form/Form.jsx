@@ -1,5 +1,5 @@
-import { Formik } from 'formik';
-import { Form, FormField, ErrorMessage, InputField, FormButton } from './Form.styled';
+import { Formik,Field } from 'formik';
+import { Form, FormField, ErrorMessage, FormButton } from './Form.styled';
 import * as Yup from 'yup';
 import { nanoid } from 'nanoid';
 
@@ -24,7 +24,7 @@ const PhonebookSchema = Yup.object().shape({
 export const PhonebookForm = ({ onSave }) => {
   const handleSubmit = (values, { resetForm }) => {
     resetForm();
-    onSave({ ...values, id: nanoid() });
+    onSave({ ...values, id: nanoid()});
   };
   return (
     <Formik
@@ -35,12 +35,12 @@ export const PhonebookForm = ({ onSave }) => {
       <Form>
         <FormField htmlFor="name">
           Name
-          <InputField name="name" required />
+          <Field name="name" required />
           <ErrorMessage name="name" component="span" />
         </FormField>
         <FormField htmlFor="number">
           Number
-          <InputField
+          <Field
             type="tel"
             name="number"
             required

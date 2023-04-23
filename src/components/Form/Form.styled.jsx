@@ -15,14 +15,6 @@ export const FormField = styled.label`
   display: flex;
   flex-direction: column;
 `;
-export const InputField = styled.input`
-  border-radius: 4px;
-  &:hover,
-  &:focus {
-    border: 3px solid #20a033;
-    color: #2f6117;
-  }
-`;
 
 export const ErrorMessage = styled(FormikErrorMessage)`
   font-size: 14px;
