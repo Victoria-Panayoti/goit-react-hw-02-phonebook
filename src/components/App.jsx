@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Contacts } from './Contacts/Contacts';
 import { Filter } from './Filter/Filter';
 import { PhonebookForm } from './Form/Form';
+import { GlobalStyle } from './GlobalStyle';
+import { Layout } from './Layout/Layout';
 
 export class App extends Component {
   state = {
@@ -41,7 +43,8 @@ export class App extends Component {
     const { contacts, filter } = this.state;
     const showContact = this.showContact();
     return (
-      <div>
+      
+      <Layout>
         <h2>Phonebook</h2>
         <PhonebookForm onSave={this.addContact} contacts={contacts} />
         <h2>Contacts</h2>
@@ -51,8 +54,9 @@ export class App extends Component {
             contacts={showContact}
             onDelete={this.deleteContact}
             />
-          )}
-      </div>
+        )}
+        <GlobalStyle/>
+      </Layout>
     );
   }
 }

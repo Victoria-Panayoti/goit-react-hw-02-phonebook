@@ -1,5 +1,5 @@
-import { Formik, Field } from 'formik';
-import { Form, FormField, ErrorMessage } from './Form.styled';
+import { Formik } from 'formik';
+import { Form, FormField, ErrorMessage, InputField, FormButton } from './Form.styled';
 import * as Yup from 'yup';
 import { nanoid } from 'nanoid';
 
@@ -35,19 +35,19 @@ export const PhonebookForm = ({ onSave }) => {
       <Form>
         <FormField htmlFor="name">
           Name
-          <Field name="name" required />
+          <InputField name="name" required />
           <ErrorMessage name="name" component="span" />
         </FormField>
         <FormField htmlFor="number">
           Number
-          <Field
+          <InputField
             type="tel"
             name="number"
             required
           />
           <ErrorMessage name="number" component="span" />
         </FormField>
-        <button type="submit">Add contact</button>
+        <FormButton type="submit">Add contact</FormButton>
       </Form>
     </Formik>
   );
