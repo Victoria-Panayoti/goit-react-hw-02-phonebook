@@ -23,7 +23,6 @@ const PhonebookSchema = Yup.object().shape({
 });
 export const PhonebookForm = ({ onSave }) => {
   const handleSubmit = (values, { resetForm }) => {
-    console.log(values);
     resetForm();
     onSave({ ...values, id: nanoid() });
   };

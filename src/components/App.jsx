@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Contacts } from './Contacts/Contacts';
-import { Filter } from './Filter/Filter';
 import { PhonebookForm } from './Form/Form';
 
 export class App extends Component {
@@ -13,21 +12,17 @@ export class App extends Component {
     ],
     name: '',
     number: '',
-    filter:'',
   };
 
   addContact = newContact => {
-    const { contacts } = this.state.contacts;
+    const { contacts } = this.state;
     contacts.find(contact => contact.name === newContact.name)
       ? alert(`${newContact.name} is already in contacts`)
       : this.setState(prevState => ({
           contacts: [...prevState.contacts, newContact],
         }));
   };
-  onFilterHandler = e => {
-    const { value } = e.currentTarget;
-    this.setState({ filter: value });
-}
+  
   render() {
     const { contacts, filter } = this.state;
     return (
@@ -38,7 +33,6 @@ export class App extends Component {
           contacts={contacts}
         />
         <h2>Contacts</h2>
-        <Filter filter={filter} onChange={this.onFilterHandler}/>
         <Contacts contacts={contacts} filter={filter} />
       </div>
     );
