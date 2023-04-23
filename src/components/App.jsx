@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Contacts } from './Contacts/Contacts';
+import { Filter } from './Filter/Filter';
 import { PhonebookForm } from './Form/Form';
 
 export class App extends Component {
@@ -10,6 +11,7 @@ export class App extends Component {
       { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
+    filter: '',
     name: '',
     number: '',
   };
@@ -22,18 +24,30 @@ export class App extends Component {
           contacts: [...prevState.contacts, newContact],
         }));
   };
+  searchContact = e => {
+    this.setState({ filter: e.currentTarget.value });
+  };
+
+  showContact = () => {
+    return [...this.state.contacts].filter(contact =>
+      contact.name.toLowerCase().includes(this.state.filter.toLocaleLowerCase())
+    );
+  };
   
   render() {
     const { contacts, filter } = this.state;
+    const showContact = this.showContact();
     return (
       <div>
         <h2>Phonebook</h2>
-        <PhonebookForm
-          onSave={this.addContact}
-          contacts={contacts}
-        />
+        <PhonebookForm onSave={this.addContact} contacts={contacts} />
         <h2>Contacts</h2>
-        <Contacts contacts={contacts} filter={filter} />
+        <Filter search={filter} onSearch={this.searchContact} />
+        {showContact && (
+            <Contacts
+              contacts={showContact}
+            />
+          )}
       </div>
     );
   }
