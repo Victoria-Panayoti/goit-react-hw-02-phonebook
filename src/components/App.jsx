@@ -18,50 +18,52 @@ export class App extends Component {
 
   addContact = newContact => {
     const { contacts } = this.state;
-    contacts.find(contact => contact.name.toLowerCase() === newContact.name.toLocaleLowerCase())
-      ? alert(`${newContact.name} is already in contacts`)
-      : this.setState(prevState => ({
-          contacts: [...prevState.contacts, newContact],
-      }));
-    contacts.find(contact => contact.number === newContact.number)
-      ? alert(`${newContact.number} is already in contacts`)
-      : this.setState(prevState => ({
-          contacts: [...prevState.contacts, newContact],
-        }));
-  };
-  searchContact = e => {
-    this.setState({ filter: e.currentTarget.value });
-  };
+    const alreadyExistingName = contacts.find(contact => contact.name.toLowerCase() === newContact.name.toLocaleLowerCase());
+    const alreadyExistingNumber = contacts.find(contact => contact.number === newContact.number);
 
-  showContact = () => {
-    return [...this.state.contacts].filter(contact =>
-      contact.name.toLowerCase().includes(this.state.filter.toLocaleLowerCase())
-    );
-  };
-  deleteContact = id => {
-    this.setState(state => ({
-      contacts: state.contacts.filter(contact=> contact.id !== id),
-    }));
+    if (alreadyExistingName || alreadyExistingNumber) {
+      alert(`${newContact.name} or ${newContact.number} is already in contacts`)
+    } else {
+      this.setState(prevState => ({
+        contacts: [...prevState.contacts, newContact]
+      }))
+    }
   };
   
-  render() {
-    const { contacts, filter } = this.state;
-    const showContact = this.showContact();
-    return (
+    searchContact = e => {
+      this.setState({ filter: e.currentTarget.value });
+    };
+
+    showContact = () => {
+      return [...this.state.contacts].filter(contact =>
+        contact.name.toLowerCase().includes(this.state.filter.toLocaleLowerCase())
+      );
+    };
+    deleteContact = id => {
+      this.setState(state => ({
+        contacts: state.contacts.filter(contact => contact.id !== id),
+      }));
+    };
+  
+    render(){
+      const { filter } = this.state;
+      const showContact = this.showContact();
+      return (
       
-      <Layout>
-        <h2>Phonebook</h2>
-        <PhonebookForm onSave={this.addContact} contacts={contacts} />
-        <h2>Contacts</h2>
-        <Filter search={filter} onSearch={this.searchContact} />
-        {showContact && (
+        <Layout>
+          <h2>Phonebook</h2>
+          <PhonebookForm onSave={this.addContact} />
+          <h2>Contacts</h2>
+          <Filter search={filter} onSearch={this.searchContact} />
+          {showContact && (
             <Contacts
-            contacts={showContact}
-            onDelete={this.deleteContact}
+              contacts={showContact}
+              onDelete={this.deleteContact}
             />
-        )}
-        <GlobalStyle/>
-      </Layout>
-    );
+          )}
+          <GlobalStyle />
+        </Layout>
+      );
+    }
   }
-}
+

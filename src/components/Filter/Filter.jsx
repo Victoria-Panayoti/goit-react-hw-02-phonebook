@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Label,Input } from './Filter.styled';
+import { Label, Input } from './Filter.styled';
 
 export const Filter = ({ search, onSearch }) => (
   <Label>
@@ -9,6 +9,6 @@ export const Filter = ({ search, onSearch }) => (
 );
 
 Filter.propTypes = {
-  search:PropTypes.string.isRequired,
-    onSearch: PropTypes.func.isRequired,
-}
+  search: PropTypes.string.isRequired,
+  onSearch: PropTypes.func.isRequired,
+};
