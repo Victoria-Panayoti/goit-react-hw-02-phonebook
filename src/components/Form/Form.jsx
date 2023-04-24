@@ -1,11 +1,12 @@
-import { Formik,Field } from 'formik';
+import PropTypes from 'prop-types';
+import { Formik, Field } from 'formik';
 import { Form, FormField, ErrorMessage, FormButton } from './Form.styled';
 import * as Yup from 'yup';
 import { nanoid } from 'nanoid';
 
 const initialValues = {
   name: '',
-  number:'',
+  number: '',
 };
 const PhonebookSchema = Yup.object().shape({
   name: Yup.string()
@@ -18,13 +19,16 @@ const PhonebookSchema = Yup.object().shape({
     )
     .required('Required field!'),
   number: Yup.string()
-  .matches(/\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,"Phone number must be digits and can contain spaces, dashes, parentheses and can start with +")
-  .required('Required field!'),
+    .matches(
+      /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
+      'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'
+    )
+    .required('Required field!'),
 });
 export const PhonebookForm = ({ onSave }) => {
   const handleSubmit = (values, { resetForm }) => {
     resetForm();
-    onSave({ ...values, id: nanoid()});
+    onSave({ ...values, id: nanoid() });
   };
   return (
     <Formik
@@ -40,11 +44,7 @@ export const PhonebookForm = ({ onSave }) => {
         </FormField>
         <FormField htmlFor="number">
           Number
-          <Field
-            type="tel"
-            name="number"
-            required
-          />
+          <Field type="tel" name="number" required />
           <ErrorMessage name="number" component="span" />
         </FormField>
         <FormButton type="submit">Add contact</FormButton>
@@ -52,3 +52,6 @@ export const PhonebookForm = ({ onSave }) => {
     </Formik>
   );
 };
+PhonebookForm.propTypes = {
+  onSave:PropTypes.func.isRequired,
+}

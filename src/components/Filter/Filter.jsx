@@ -9,5 +9,6 @@ export const Filter = ({ search, onSearch }) => (
 );
 
 Filter.propTypes = {
+  search:PropTypes.string.isRequired,
     onSearch: PropTypes.func.isRequired,
 }
